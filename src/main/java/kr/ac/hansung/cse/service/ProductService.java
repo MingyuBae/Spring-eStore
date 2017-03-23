@@ -17,4 +17,20 @@ public class ProductService {
 	public List<Product> getProducts(){
 		return productDao.getProducts();
 	}
+	
+	public Product getProductById(int id) {
+		return productDao.getProductById(id);
+	}
+
+	public boolean addProduct(Product product) {
+		return productDao.addProduct(product);
+	}
+
+	public boolean deleteProductById(int id) {
+		return productDao.deleteProduct(id);
+	}
+
+	public boolean editProduct(Product product) {
+		return productDao.editProduct(product);
+	}
 }

@@ -19,4 +19,25 @@
 		<put-attribute name="title" value="My eStore's products"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/products.jsp"></put-attribute>
 	</definition>
+	
+	<definition name="admin" extends="base">
+		<put-attribute name="title" value="Administration Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/admin.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="productInventory" extends="base">
+		<put-attribute name="title" value="Product Inventory Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/productInventory.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="addProduct" extends="base">
+		<put-attribute name="title" value="Add Product Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/addProduct.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="editProduct" extends="base">
+		<put-attribute name="title" value="Edit Product Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/editProduct.jsp"></put-attribute>
+	</definition>
+	
 </tiles-definitions>
