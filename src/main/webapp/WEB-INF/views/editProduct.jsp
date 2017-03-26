@@ -11,6 +11,7 @@
 	
 	<form:form 
 		action="${pageContext.request.contextPath}/admin/productInventory/editProduct"
+		enctype="multipart/form-data"
 		method="POST" modelAttribute="product">
 		
 		<form:hidden path="id"/>
@@ -52,6 +53,11 @@
 			<label for="manufacturer">Manufacturer</label>
 			<form:input path="manufacturer" class="form-control"/>
 			<form:errors path="manufacturer" cssStyle="color: #ff0000;" />
+		</div>
+		
+		<div class="form-group">
+			<label for="productImage">Upload Picture</label>
+			<form:input path="productImage" type="file" class="form-control"/>
 		</div>
 		
 		<input type="submit" value="submit" class="btn btn-default">

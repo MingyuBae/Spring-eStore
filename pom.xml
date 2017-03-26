@@ -150,6 +150,11 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.4.0.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.2</version>
+		</dependency>
 	</dependencies>
     <build>
         <plugins>

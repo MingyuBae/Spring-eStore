@@ -1,7 +1,13 @@
 package kr.ac.hansung.cse.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +18,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.ac.hansung.cse.model.Product;
 import kr.ac.hansung.cse.service.ProductService;
@@ -49,7 +56,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/productInventory/addProduct", method=RequestMethod.POST)
-	public String addProductPost(@Valid Product product, BindingResult result){
+	public String addProductPost(@Valid Product product, BindingResult result,
+			HttpServletRequest request){
 		
 		if(result.hasErrors()){
 			System.out.println("=== Form data has some errors ===");
@@ -62,6 +70,20 @@ public class AdminController {
 			return "addProduct";
 		}
 		
+		MultipartFile productImage = product.getProductImage();
+		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+		Path savePath = Paths.get(rootDirectory + "/resources/images/" + productImage.getOriginalFilename());
+		
+		if(productImage != null && !productImage.isEmpty()){
+			try{
+				productImage.transferTo(new File(savePath.toString()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		product.setImageFilename(productImage.getOriginalFilename());
+		
 		if(! productService.addProduct(product)){
 			System.out.println("Adding Product cannot be done");
 		}
@@ -71,7 +93,20 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/productInventory/deleteProduct/{id}")
-	public String deleteProduct(@PathVariable int id){
+	public String deleteProduct(@PathVariable int id, HttpServletRequest request){
+		
+		Product product = productService.getProductById(id);
+		
+		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+		Path path = Paths.get(rootDirectory + "/resources/images/" + product.getImageFilename());
+		
+		if(Files.exists(path)){
+			try{
+				Files.delete(path);
+			} catch (IOException e){
+				e.printStackTrace();
+			}
+		}
 		
 		if(! productService.deleteProductById(id)){
 			System.out.println("Deleting product cannot be done");
@@ -91,7 +126,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/productInventory/editProduct", method=RequestMethod.POST)
-	public String editProductPost(@Valid Product product, BindingResult result){
+	public String editProductPost(@Valid Product product, BindingResult result, 
+			HttpServletRequest request){
 		
 		if(result.hasErrors()){
 			System.out.println("=== Form data has some errors ===");
@@ -103,6 +139,20 @@ public class AdminController {
 			
 			return "editProduct";
 		}
+		
+		MultipartFile productImage = product.getProductImage();
+		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+		Path savePath = Paths.get(rootDirectory + "/resources/images/" + productImage.getOriginalFilename());
+		
+		if(productImage != null && !productImage.isEmpty()){
+			try{
+				productImage.transferTo(new File(savePath.toString()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		product.setImageFilename(productImage.getOriginalFilename());
 		
 		if(! productService.editProduct(product)){
 			System.out.println("Editing Product cannot be done");

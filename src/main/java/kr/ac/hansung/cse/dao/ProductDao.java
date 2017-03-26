@@ -40,6 +40,7 @@ public class ProductDao {
 				product.setManufacturer(rs.getString("manufacturer"));
 				product.setUnitInStock(rs.getInt("unitInStock"));
 				product.setDescription(rs.getString("description"));
+				product.setImageFilename(rs.getString("imageFilename"));
 				
 				return product;
 			}
@@ -66,6 +67,7 @@ public class ProductDao {
 				product.setManufacturer(rs.getString("manufacturer"));
 				product.setUnitInStock(rs.getInt("unitInStock"));
 				product.setDescription(rs.getString("description"));
+				product.setImageFilename(rs.getString("imageFilename"));
 				
 				return product;
 			}
@@ -79,13 +81,14 @@ public class ProductDao {
 		String manufacturer = product.getManufacturer();
 		int unitInStock = product.getUnitInStock();
 		String description = product.getDescription();
+		String imageFilename = product.getImageFilename();
 		
 		String sqlStatement = "INSERT "
-				+ "INTO product(name, category, price, manufacturer, unitInStock, description) "
-				+ "VALUES(?, ?, ?, ?, ?, ?)";
+				+ "INTO product(name, category, price, manufacturer, unitInStock, description, imageFilename) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?)";
 		
 		return (jdbcTemplateObject.update(sqlStatement, 
-				new Object[] { name, category, price, manufacturer, unitInStock, description}) == 1);
+				new Object[] { name, category, price, manufacturer, unitInStock, description, imageFilename}) == 1);
 	}
 
 	public boolean deleteProduct(int id) {
@@ -97,7 +100,7 @@ public class ProductDao {
 	public boolean editProduct(Product product) {
 		String sqlStatement = "UPDATE product "
 				+ "SET name=?, category=?, price=?, manufacturer=?, "
-					+ "unitInStock=?, description=? "
+					+ "unitInStock=?, description=?, imageFilename=? "
 				+ "WHERE id = ?";
 		
 		int id = product.getId();
@@ -107,8 +110,9 @@ public class ProductDao {
 		String manufacturer = product.getManufacturer();
 		int unitInStock = product.getUnitInStock();
 		String description = product.getDescription();
+		String imageFilename = product.getImageFilename();
 		
 		return (jdbcTemplateObject.update(sqlStatement, 
-				new Object[] { name, category, price, manufacturer, unitInStock, description, id }) == 1);
+				new Object[] { name, category, price, manufacturer, unitInStock, description, imageFilename, id}) == 1);
 	}
 }
