@@ -10,7 +10,7 @@
 	</div>
 	
 	<form:form 
-		action="${pageContext.request.contextPath}/admin/productInventory/editProduct"
+		action="${pageContext.request.contextPath}/admin/productInventory/editProduct?${_csrf.parameterName}=${_csrf.token}"
 		enctype="multipart/form-data"
 		method="POST" modelAttribute="product">
 		
