@@ -20,6 +20,11 @@
 		<put-attribute name="body" value="/WEB-INF/views/products.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="viewProduct" extends="base">
+		<put-attribute name="title" value="My eStore's product detail"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/viewProduct.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="admin" extends="base">
 		<put-attribute name="title" value="Administration Page"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/admin.jsp"></put-attribute>

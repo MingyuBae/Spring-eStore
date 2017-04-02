@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <div class="container-wrapper">
 	<div class="container">
 		<h2>All Products</h2>
 		<p class="lead">착한 가격에 모든 상품을 살펴보세요!!!!</p>
-		<table class="table table-striped">
+		<table class="table table-striped product-list">
 			<thead>
 				<tr class="bg-success">
 					<th>Photo Thumb</th>
@@ -16,6 +17,7 @@
 					<th>Manufacturer</th>
 					<th>UnitInStock</th>
 					<th>Description</th>
+					<th class="action-icon"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -31,6 +33,11 @@
 						<td>${product.manufacturer}</td>
 						<td>${product.unitInStock}</td>
 						<td>${product.description}</td>
+						<td>
+							<a href="<spring:url value="/viewProduct/${product.id}" />">
+								<span class="glyphicon glyphicon-info-sign"></span>
+							</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

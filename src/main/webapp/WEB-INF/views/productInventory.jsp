@@ -7,7 +7,7 @@
 	<div class="container">
 		<h2>Product Inventory Page</h2>
 		<p class="lead">제품 재고 현황입니다.</p>
-		<table class="table table-striped">
+		<table class="table table-striped product-list">
 			<thead>
 				<tr class="bg-success">
 					<th>Photo Thumb</th>
@@ -17,8 +17,9 @@
 					<th>Manufacturer</th>
 					<th>UnitInStock</th>
 					<th>Description</th>
-					<th></th>
-					<th></th>
+					<th class="action-icon"></th>
+					<th class="action-icon"></th>
+					<th class="action-icon"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,6 +35,11 @@
 						<td>${product.manufacturer}</td>
 						<td>${product.unitInStock}</td>
 						<td>${product.description}</td>
+						<td>
+							<a href="<spring:url value="/viewProduct/${product.id}" />">
+								<span class="glyphicon glyphicon-info-sign"></span>
+							</a>
+						</td>
 						<td>
 							<a href="<spring:url value="/admin/productInventory/deleteProduct/${product.id}" />">
 								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
