@@ -84,10 +84,7 @@ public class AdminController {
 		
 		product.setImageFilename(productImage.getOriginalFilename());
 		
-		if(! productService.addProduct(product)){
-			System.out.println("Adding Product cannot be done");
-		}
-		
+		productService.addProduct(product);
 		
 		return "redirect:/admin/productInventory";
 	}
@@ -108,9 +105,7 @@ public class AdminController {
 			}
 		}
 		
-		if(! productService.deleteProductById(id)){
-			System.out.println("Deleting product cannot be done");
-		}
+		productService.deleteProduct(product);
 		
 		return "redirect:/admin/productInventory";
 	}
@@ -154,9 +149,7 @@ public class AdminController {
 		
 		product.setImageFilename(productImage.getOriginalFilename());
 		
-		if(! productService.editProduct(product)){
-			System.out.println("Editing Product cannot be done");
-		}
+		productService.editProduct(product);
 		
 		return "redirect:/admin/productInventory";
 	}

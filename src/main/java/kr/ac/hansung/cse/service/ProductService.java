@@ -22,15 +22,15 @@ public class ProductService {
 		return productDao.getProductById(id);
 	}
 
-	public boolean addProduct(Product product) {
-		return productDao.addProduct(product);
+	public void addProduct(Product product) {
+		productDao.addProduct(product);
 	}
 
-	public boolean deleteProductById(int id) {
-		return productDao.deleteProduct(id);
+	public void deleteProduct(Product product) {
+		productDao.deleteProduct(product);
 	}
 
-	public boolean editProduct(Product product) {
-		return productDao.editProduct(product);
+	public void editProduct(Product product) {
+		productDao.editProduct(product);
 	}
 }
