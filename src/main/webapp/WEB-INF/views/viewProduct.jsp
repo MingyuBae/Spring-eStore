@@ -25,7 +25,7 @@
 					<strong>Category</strong> : ${product.category}
 				</p>
 				<p class="price">
-					<strong>${product.unitInStock}</strong> 원
+					<strong>${product.price}</strong> 원
 				</p>
 				
 				<br />

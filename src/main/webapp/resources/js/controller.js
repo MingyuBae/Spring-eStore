@@ -25,6 +25,28 @@ cartApp.controller("cartCtrl", function($scope, $http){
 				});
 	};
 	
+	$scope.plusFromCart = function (productId){
+		$scope.setCsrfToken();
+		
+		$http.put('/eStore/rest/cart/add/' + productId).then(
+				function successCallback(){
+					$scope.refreshCart();
+				}, function errorCallback(response){
+					alert("Adding to the cart failed!");
+				});
+	};
+	
+	$scope.minusFromCart = function (productId){
+		$scope.setCsrfToken();
+		
+		$http.put('/eStore/rest/cart/minus/' + productId).then(
+				function successCallback(){
+					$scope.refreshCart();
+				}, function errorCallback(response){
+					alert("Reducing to the cart failed!");
+				});
+	};
+	
 	$scope.removeFromCart = function (productId){
 		$scope.setCsrfToken();
 		
@@ -54,8 +76,10 @@ cartApp.controller("cartCtrl", function($scope, $http){
 	$scope.calGrandTotal = function (){
 		var grandTotal = 0;
 		
-		for(var i=0; i<$scope.cart.cartItems.length; i++){
-			grandTotal += $scope.cart.cartItems[i].totalPrice;
+		if(typeof($scope.cart) !== 'undefined'){
+			for(var i=0; i<$scope.cart.cartItems.length; i++){
+				grandTotal += $scope.cart.cartItems[i].totalPrice;
+			}			
 		}
 		
 		return grandTotal; 

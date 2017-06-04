@@ -22,14 +22,14 @@
 				</a>
 			</div>
 			
-			<table class="table table-hover">
+			<table class="table table-hover cart-list">
 				<tbody>
 					<tr>
 						<th>Product</th>
 						<th>Unit Price</th>
 						<th>Quantity</th>
 						<th>Total Price</th>
-						<th>Action</th>
+						<th class="btn-cell">Action</th>
 					</tr>
 				</tbody>
 				<tbody>
@@ -38,9 +38,17 @@
 						<td>{{item.product.price}}</td>
 						<td>{{item.quantity}}</td>
 						<td>{{item.totalPrice}}</td>
-						<td>
+						<td class="btn-cell">
 							<a href="#" class="label label-danger" ng-click="removeFromCart(item.product.id)">
 								<span class="glyphicon glyphicon-remove"></span> remove
+							</a>
+							
+							<a href="#" class="label label-danger" ng-click="plusFromCart(item.product.id)">
+								<span class="glyphicon glyphicon-plus"></span> plus
+							</a>
+							
+							<a href="#" class="label label-danger" ng-click="minusFromCart(item.product.id)">
+								<span class="glyphicon glyphicon-minus" aria-hidden="true"></span> minus
 							</a>
 						</td>
 					</tr>
@@ -56,7 +64,7 @@
 				</tfoot>
 			</table>
 			
-			<a href="<c:out value="/products" />" class="btn btn-0default">Continue Shopping</a>
+			<a href="<c:out value="/products" />" class="btn btn-default">Continue Shopping</a>
 		</div>
 	</section>
 </div>

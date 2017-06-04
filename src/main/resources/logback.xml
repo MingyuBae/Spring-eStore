@@ -32,6 +32,18 @@
 		</encoder>
 	</appender>
 	
+	<logger name="org.hibernate.SQL" additivity="false">
+		<level value="debug"/>
+		
+		<appender-ref ref="consoleAppender" />
+	</logger>
+	
+	<logger name="org.hibernate.type.descriptor.sql.BasicBinder" additivity="false">
+		<level value="trace"/>
+		
+		<appender-ref ref="consoleAppender" />
+	</logger>
+	
 	<logger name="kr.ac.hansung.cse" additivity="false">
 		<level value="INFO" />
 		

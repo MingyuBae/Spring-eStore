@@ -60,9 +60,15 @@ public class CartRestController {
 			if(product.getId() == cartItems.get(i).getProduct().getId()){
 				cartItem = cartItems.get(i);
 				
-				cartItem.setQuantity(cartItem.getQuantity() + 1);
-				cartItem.setTotalPrice(product.getPrice() * cartItem.getQuantity());
-				cartItemService.addCartItem(cartItem);
+				if(cartItem.getQuantity() + 1 <= product.getUnitInStock()) {
+					cartItem.setQuantity(cartItem.getQuantity() + 1);
+					cartItem.setTotalPrice(product.getPrice() * cartItem.getQuantity());
+					cartItemService.addCartItem(cartItem);
+				} else {
+					return new ResponseEntity<>(HttpStatus.CONFLICT);
+				}
+				
+				break;
 			}
 		}
 		
@@ -77,6 +83,40 @@ public class CartRestController {
 			cartItemService.addCartItem(cartItem);
 			cart.getCartItems().add(cartItem);
 			product.getCartItemList().add(cartItem);
+		}
+		
+		cart.setGrandTotal(cartService.calGrandTotal(cart));
+		cartService.save(cart);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/minus/{productId}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> minusItem(@PathVariable(value="productId") int productId){ 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		String username = authentication.getName();
+		User user = userService.getUserByUsername(username);
+		Cart cart = user.getCart();
+		Product product = productService.getProductById(productId);
+		
+		List<CartItem> cartItems = cart.getCartItems();
+		CartItem cartItem = null;
+		
+		for(int i=0; i<cartItems.size(); i++){
+			if(product.getId() == cartItems.get(i).getProduct().getId()){
+				cartItem = cartItems.get(i);
+				
+				if(cartItem.getQuantity() - 1 >= 0) {
+					cartItem.setQuantity(cartItem.getQuantity() - 1);
+					cartItem.setTotalPrice(product.getPrice() * cartItem.getQuantity());
+					cartItemService.addCartItem(cartItem);
+				} else {
+					return new ResponseEntity<>(HttpStatus.CONFLICT);
+				}
+				
+				break;
+			}
 		}
 		
 		cart.setGrandTotal(cartService.calGrandTotal(cart));
